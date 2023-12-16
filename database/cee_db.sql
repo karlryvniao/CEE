@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2020 at 04:19 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Dec 16, 2023 at 06:07 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -89,7 +88,8 @@ INSERT INTO `examinee_tbl` (`exmne_id`, `exmne_fullname`, `exmne_course`, `exmne
 (5, 'Jane Rivera', '25', 'female', '2019-11-14', 'second year', 'jane@gmail.com', 'jane', 'active'),
 (6, 'Glenn Duerme', '26', 'female', '2019-12-24', 'third year', 'glenn@gmail.com', 'glenn', 'active'),
 (7, 'Maria Duerme', '26', 'female', '2018-11-25', 'second year', 'maria@gmail.com', 'maria', 'active'),
-(8, 'Dave Limasac', '26', 'female', '2019-12-21', 'second year', 'dave@gmail.com', 'dave', 'active');
+(8, 'Dave Limasac', '26', 'female', '2019-12-21', 'second year', 'dave@gmail.com', 'dave', 'active'),
+(9, 'test', '25', 'male', '2023-12-16', 'first year', 'test@1.s', 'qwerty', 'active');
 
 -- --------------------------------------------------------
 
@@ -137,7 +137,10 @@ INSERT INTO `exam_answers` (`exans_id`, `axmne_id`, `exam_id`, `quest_id`, `exan
 (317, 8, 12, 14, 'Operating System', 'new', '2020-01-05 03:18:35'),
 (318, 8, 12, 20, 'Einstein oscillation', 'new', '2020-01-05 03:18:35'),
 (319, 8, 12, 21, 'Temporary file', 'new', '2020-01-05 03:18:35'),
-(320, 8, 12, 25, 'Diode, inverted, pointer', 'new', '2020-01-05 03:18:35');
+(320, 8, 12, 25, 'Diode, inverted, pointer', 'new', '2020-01-05 03:18:35'),
+(321, 8, 11, 29, 'asd', 'new', '2023-12-12 02:23:45'),
+(322, 8, 11, 28, 'q1', 'new', '2023-12-12 02:23:45'),
+(323, 4, 24, 32, 'vbssbdf', 'new', '2023-12-12 02:50:47');
 
 -- --------------------------------------------------------
 
@@ -160,7 +163,9 @@ INSERT INTO `exam_attempt` (`examat_id`, `exmne_id`, `exam_id`, `examat_status`)
 (51, 6, 12, 'used'),
 (52, 4, 11, 'used'),
 (53, 4, 12, 'used'),
-(54, 8, 12, 'used');
+(54, 8, 12, 'used'),
+(55, 8, 11, 'used'),
+(56, 4, 24, 'used');
 
 -- --------------------------------------------------------
 
@@ -201,7 +206,9 @@ INSERT INTO `exam_question_tbl` (`eqt_id`, `exam_id`, `exam_question`, `exam_ch1
 (27, 15, 'asdasd', 'dsf', 'sd', 'yui', 'sdf', 'yui', 'active'),
 (28, 11, 'Question 1', 'q1', 'asd', 'fds', 'ytu', 'q1', 'active'),
 (29, 11, 'Question 2', 'asd', 'sd', 'q2', 'dfg', 'q2', 'active'),
-(30, 11, 'Question 3', 'sd', 'q3', 'asd', 'fgh', 'q3', 'active');
+(30, 11, 'Question 3', 'sd', 'q3', 'asd', 'fgh', 'q3', 'active'),
+(31, 13, 'asda ada a?', 'adsa', 'asda', 'adsa', 'asdasd', 'adsa', 'active'),
+(32, 24, 'asd adas asd?', 'gdhjnf ghn', ' fgnh fgasde', ' sdfg s', 'vbssbdf', 'vbssbdf', 'active');
 
 -- --------------------------------------------------------
 
@@ -226,7 +233,10 @@ CREATE TABLE `exam_tbl` (
 INSERT INTO `exam_tbl` (`ex_id`, `cou_id`, `ex_title`, `ex_time_limit`, `ex_questlimit_display`, `ex_description`, `ex_created`) VALUES
 (11, 26, 'Duerms', '1', 2, 'qwe', '2019-12-05 12:03:21'),
 (12, 26, 'Another Exam', '1', 5, 'Mabilisang Exam', '2019-12-04 15:19:18'),
-(13, 26, 'Exam Again', '5', 0, 'again and again\r\n', '2019-11-30 08:24:54');
+(13, 26, 'Exam Again', '5', 0, 'again and again', '2023-12-12 02:49:59'),
+(24, 26, 'long quiz', '40', 60, 's', '2023-12-12 02:24:30'),
+(25, 65, 'dsa', '50', 2, 'dsa', '2023-12-15 12:38:46'),
+(26, 26, 'test', '20', 4, 'asda', '2023-12-15 12:44:59');
 
 -- --------------------------------------------------------
 
@@ -253,6 +263,42 @@ INSERT INTO `feedbacks_tbl` (`fb_id`, `exmne_id`, `fb_exmne_as`, `fb_feedbacks`,
 (7, 4, '', '', 'December 08, 2019'),
 (8, 4, '', '', 'December 08, 2019'),
 (9, 8, 'Anonymous', 'dfsdf', 'January 05, 2020');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `module_tbl`
+--
+
+CREATE TABLE `module_tbl` (
+  `mdl_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `module_tbl`
+--
+
+INSERT INTO `module_tbl` (`mdl_id`, `title`, `description`, `status`) VALUES
+(67, 'testing last na', '', 'active'),
+(68, 'test ulet', '', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task_tbl`
+--
+
+CREATE TABLE `task_tbl` (
+  `task_id` int(11) NOT NULL,
+  `task_title` varchar(255) NOT NULL,
+  `task_SDate` date NOT NULL,
+  `task_EDate` date NOT NULL,
+  `task_desc` text NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -307,6 +353,18 @@ ALTER TABLE `feedbacks_tbl`
   ADD PRIMARY KEY (`fb_id`);
 
 --
+-- Indexes for table `module_tbl`
+--
+ALTER TABLE `module_tbl`
+  ADD PRIMARY KEY (`mdl_id`);
+
+--
+-- Indexes for table `task_tbl`
+--
+ALTER TABLE `task_tbl`
+  ADD PRIMARY KEY (`task_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -326,37 +384,49 @@ ALTER TABLE `course_tbl`
 -- AUTO_INCREMENT for table `examinee_tbl`
 --
 ALTER TABLE `examinee_tbl`
-  MODIFY `exmne_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `exmne_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `exam_answers`
 --
 ALTER TABLE `exam_answers`
-  MODIFY `exans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
+  MODIFY `exans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=324;
 
 --
 -- AUTO_INCREMENT for table `exam_attempt`
 --
 ALTER TABLE `exam_attempt`
-  MODIFY `examat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `examat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `exam_question_tbl`
 --
 ALTER TABLE `exam_question_tbl`
-  MODIFY `eqt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `eqt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `exam_tbl`
 --
 ALTER TABLE `exam_tbl`
-  MODIFY `ex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `ex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `feedbacks_tbl`
 --
 ALTER TABLE `feedbacks_tbl`
   MODIFY `fb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `module_tbl`
+--
+ALTER TABLE `module_tbl`
+  MODIFY `mdl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT for table `task_tbl`
+--
+ALTER TABLE `task_tbl`
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
